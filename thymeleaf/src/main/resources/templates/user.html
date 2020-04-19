@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+</head>
+<body>
+用户名：<h1 th:text="${user.realName}"></h1>
+性别：<h1 th:text="${user.sex}"></h1>
+e_mail：<h1 th:text="${user.email}"></h1>
+地址：<h1 th:text="${user.address}"></h1>
+电话：<h1 th:text="${user.phone}"></h1>
+</body>
+</html>

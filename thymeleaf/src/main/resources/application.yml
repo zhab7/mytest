@@ -1,0 +1,21 @@
+spring:
+  thymeleaf:
+    cache: false
+  http:
+    multipart:
+      maxFileSize = 10Mb
+      maxRequestSize=100Mb
+  datasource:
+    dynamic:
+      primary: ty
+      datasource:
+        ty:
+          url: jdbc:mysql://212.129.135.144:3306/thymeleaf?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC
+          username: root
+          password: 123456
+fdfs:
+  connect-timeout: 10000
+  so-timeout: 3000
+  tracker-list:
+  - 212.129.135.144:22122
+
