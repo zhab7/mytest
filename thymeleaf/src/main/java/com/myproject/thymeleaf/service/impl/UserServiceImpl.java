@@ -1,6 +1,5 @@
 package com.myproject.thymeleaf.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.myproject.thymeleaf.mapper.UserMapper;
 import com.myproject.thymeleaf.model.entity.User;
