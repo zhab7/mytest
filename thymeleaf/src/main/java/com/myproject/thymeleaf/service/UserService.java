@@ -1,8 +1,8 @@
 package com.myproject.thymeleaf.service;
 
-import com.myproject.thymeleaf.model.entity.User;
+import com.myproject.thymeleaf.model.entity.SysUser;
 
 public interface UserService {
 
-    User getByName(String userName);
+    SysUser getByName(String userName);
 }

@@ -3,7 +3,7 @@ package com.myproject.thymeleaf.model.entity;
 import lombok.Data;
 
 @Data
-public class User extends BaseEntity {
+public class SysUser extends BaseEntity {
 
     String userName;
     String password;

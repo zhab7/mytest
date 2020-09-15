@@ -1,14 +1,15 @@
 package com.myproject.thymeleaf.shiro.realm;
 
-import com.myproject.thymeleaf.mapper.UserMapper;
-import com.myproject.thymeleaf.model.entity.User;
+import com.myproject.thymeleaf.model.entity.SysUser;
 import com.myproject.thymeleaf.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@Slf4j
 public class ShiroRealm extends AuthorizingRealm {
 
     @Autowired
@@ -31,19 +32,15 @@ public class ShiroRealm extends AuthorizingRealm {
     	// 获取用户输入的用户名和密码
         String userName = (String) token.getPrincipal();
         String password = new String((char[]) token.getCredentials());
-        
-        System.out.println("用户" + userName + "认证-----ShiroRealm.doGetAuthenticationInfo");
-
         // 通过用户名到数据库查询用户信息
-        User user = userService.getByName(userName);
+        SysUser sysUser = userService.getByName(userName);
         
-        if (user == null) {
+        if (sysUser == null) {
             throw new UnknownAccountException("用户名或密码错误！");
         }
-        if (!password.equals(user.getPassword())) {
+        if (!password.equals(sysUser.getPassword())) {
             throw new IncorrectCredentialsException("用户名或密码错误！");
         }
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
-        return info;
+        return new SimpleAuthenticationInfo(sysUser, password, getName());
     }
 }

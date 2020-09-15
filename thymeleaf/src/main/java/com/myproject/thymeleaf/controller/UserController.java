@@ -1,12 +1,13 @@
 package com.myproject.thymeleaf.controller;
 
 import com.myproject.thymeleaf.model.annotation.Log;
-import com.myproject.thymeleaf.model.entity.User;
+import com.myproject.thymeleaf.model.entity.SysUser;
 import com.myproject.thymeleaf.model.vo.ResponseBo;
 import com.myproject.thymeleaf.service.UserService;
 import com.myproject.thymeleaf.shiro.util.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 
 @Api(value = "用户Controller")
+@Slf4j
 @Controller
 //@RequestMapping("/user")
 public class UserController {
@@ -30,8 +32,8 @@ public class UserController {
     @ApiOperation("根据用户名获取用户")
     public String getUser(Model model, @RequestParam String userName) {
 
-        User user = userService.getByName(userName);
-        model.addAttribute("user", user);
+        SysUser sysUser = userService.getByName(userName);
+        model.addAttribute("sysUser", sysUser);
         return "user";
     }
 
@@ -47,6 +49,7 @@ public class UserController {
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);
+            log.info("当前登录用户：{}", username);
             return ResponseBo.ok();
         } catch (UnknownAccountException e) {
             return ResponseBo.error(e.getMessage());
@@ -62,8 +65,8 @@ public class UserController {
     @RequestMapping("/index")
     public String index(Model model) {
         // 登录成后，即可通过Subject获取登录的用户信息
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        model.addAttribute("user", user);
+        SysUser sysUser = (SysUser) SecurityUtils.getSubject().getPrincipal();
+        model.addAttribute("sysUser", sysUser);
         return "user";
     }
 
