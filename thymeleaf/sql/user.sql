@@ -21,7 +21,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for sysUser
 -- ----------------------------
 DROP TABLE IF EXISTS `sysUser`;
-CREATE TABLE `sysUser`  (
+CREATE TABLE `sys_user`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `created` datetime(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
   `deleted` datetime(3) NULL DEFAULT NULL,
