@@ -1,11 +1,17 @@
 package com.myproject.thymeleaf.shiro.config;
 
+import com.myproject.thymeleaf.shiro.filter.JWTFilter;
 import com.myproject.thymeleaf.shiro.realm.ShiroRealm;
+import org.apache.shiro.codec.Base64;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 
 @Configuration
@@ -23,6 +29,10 @@ public class ShiroConfig {
         // 未授权url
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 
+        // 在 Shiro过滤器链上加入 JWTFilter
+//        LinkedHashMap<String, Filter> filters = new LinkedHashMap<>();
+//        filters.put("jwt", new JWTFilter());
+//        shiroFilterFactoryBean.setFilters(filters);
 
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 
@@ -38,6 +48,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/", "anon");
         // 除上以外所有url都必须认证通过才可以访问，未通过认证自动访问LoginUrl
         filterChainDefinitionMap.put("/**", "authc");
+        // 所有请求都要经过 jwt过滤器
+//        filterChainDefinitionMap.put("/**", "jwt");
+
 
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -49,6 +62,7 @@ public class ShiroConfig {
         // 配置SecurityManager，并注入shiroRealm
         DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
         securityManager.setRealm(shiroRealm());
+        securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
     }
 
@@ -59,5 +73,35 @@ public class ShiroConfig {
         return shiroRealm;
     }
 
+    @Bean("authorizationAttributeSourceAdvisor")
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
+        return authorizationAttributeSourceAdvisor;
+    }
+
+    /**
+     * cookie对象
+     * @return
+     */
+    public SimpleCookie rememberMeCookie() {
+        // 设置cookie名称，对应login.html页面的<input type="checkbox" name="rememberMe"/>
+        SimpleCookie cookie = new SimpleCookie("rememberMe");
+        // 设置cookie的过期时间，单位为秒，这里为一天
+        cookie.setMaxAge(86400);
+        return cookie;
+    }
+
+    /**
+     * cookie管理对象
+     * @return
+     */
+    public CookieRememberMeManager rememberMeManager() {
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        // rememberMe cookie加密的密钥
+        cookieRememberMeManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
+        return cookieRememberMeManager;
+    }
 
 }

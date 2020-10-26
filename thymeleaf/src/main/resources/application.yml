@@ -22,4 +22,6 @@ fdfs:
 logging:
   level:
     com.myproject.thymeleaf: debug
-
+  config: classpath:logback.xml
+server:
+  port: 8081
