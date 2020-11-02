@@ -6,6 +6,7 @@ import com.myproject.thymeleaf.model.req.SysUserReq;
 import com.myproject.thymeleaf.model.vo.ResponseBo;
 import com.myproject.thymeleaf.service.UserService;
 import com.myproject.thymeleaf.shiro.util.MD5Utils;
+import com.myproject.thymeleaf.util.BeanConvertUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +14,6 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.MDC;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.Date;
-import java.util.Locale;
 
 @Api(value = "用户Controller")
 @Slf4j
@@ -31,8 +29,6 @@ public class UserController {
 
     @Resource
     private UserService userService;
-    @Resource
-    protected MessageSource i18nMessageSource;
 
 
     @GetMapping("/getUser")
@@ -66,7 +62,6 @@ public class UserController {
         } catch (LockedAccountException e) {
             return ResponseBo.error(e.getMessage());
         } catch (AuthenticationException e) {
-            String message = i18nMessageSource.getMessage(e.getMessage(), null, new Locale("zh"));
             return ResponseBo.error("认证失败！");
         }
     }
@@ -95,8 +90,25 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody @Valid SysUserReq sysUserReq) {
+    @ResponseBody
+    public ResponseBo register(@RequestBody @Valid SysUserReq sysUserReq) {
+        System.out.println("username = " + sysUserReq);
+        SysUser user = userService.getByName(sysUserReq.getUserName());
+        if (user != null) {
+            return ResponseBo.error("用户名已注册！");
+        }
 
+        String newPassword = MD5Utils.encrypt(sysUserReq.getUserName(), sysUserReq.getPassword());
+        SysUser sysUser = BeanConvertUtils.map(sysUserReq, SysUser.class);
+        sysUser.setPassword(newPassword);
+        sysUser.setStatus(0);
+        userService.insertUser(sysUser);
+        return ResponseBo.ok();
+    }
+
+    @GetMapping("/register")
+    public String register() {
+        return "register";
     }
 
     @GetMapping("/403")

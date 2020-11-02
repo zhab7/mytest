@@ -5,4 +5,6 @@ import com.myproject.thymeleaf.model.entity.SysUser;
 public interface UserService {
 
     SysUser getByName(String userName);
+
+    void insertUser(SysUser sysUser);
 }

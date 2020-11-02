@@ -1,6 +1,5 @@
 package com.myproject.thymeleaf.shiro.config;
 
-import com.myproject.thymeleaf.shiro.filter.JWTFilter;
 import com.myproject.thymeleaf.shiro.realm.ShiroRealm;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -11,7 +10,6 @@ import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 
 @Configuration
@@ -41,6 +39,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/fonts/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
+        filterChainDefinitionMap.put("/register", "anon");
         // druid数据源监控页面不拦截
         filterChainDefinitionMap.put("/druid/**", "anon");
         // 配置退出过滤器，其中具体的退出代码Shiro已经替我们实现了

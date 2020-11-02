@@ -4,7 +4,7 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
 public class MD5Utils {
-	private static final String SALT = "mrbird";
+	private static final String SALT = "Jzowner";
 
 	private static final String ALGORITH_NAME = "md5";
 
@@ -22,7 +22,7 @@ public class MD5Utils {
 	}
 	public static void main(String[] args) {
 		
-		System.out.println(MD5Utils.encrypt("test", "123456"));
+		System.out.println(MD5Utils.encrypt("q", "q"));
 	}
 
 }

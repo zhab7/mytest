@@ -18,4 +18,9 @@ public class UserServiceImpl implements UserService {
     public SysUser getByName(String userName) {
         return userMapper.selectOne(new QueryWrapper<SysUser>().lambda().eq(SysUser::getUserName, userName));
     }
+
+    @Override
+    public void insertUser(SysUser sysUser) {
+        userMapper.insert(sysUser);
+    }
 }

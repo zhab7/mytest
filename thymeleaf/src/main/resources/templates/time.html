@@ -1,10 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head >
     <meta charset="UTF-8">
     <title>GET TIME</title>
 </head>
 <body>
-<h1 th:text="${#dates.format(time,'yyyy-MM-dd HH:mm:ss')}">获取时间失败</h1>
+<div>
+    <div style="text-align: right">
+        <span th:text="${#dates.format(time,'yyyy-MM-dd HH:mm:ss')}">获取时间失败</span>
+        <a style="color: #1ed7cb; text-align: right; width:140px; height:30px;" href="/register">注册</a>
+        <a style="color: #1ed7cb; text-align: right; width:140px; height:30px;" href="/login">登录</a>
+    </div>
+
+    <div align="center">
+        <video width="800" height="600" controls="controls" autoplay="autoplay">
+            <source src="../video/test.mp4" type="video/ogg" />
+            <source src="../video/test.mp4" type="video/mp4" />
+            <source src="../video/test.mp4" type="audio/mp4" />
+            <source src="../video/test.mp4" type="video/webm" />
+            <object data="../video/test.mp4" width="320" height="240">
+                <embed width="320" height="240" src="../video/test.mp4" />
+            </object>
+        </video>
+    </div>
+</div>
 </body>
 </html>
