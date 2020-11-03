@@ -244,7 +244,7 @@
 </head>
 <body>
 <div class="wrap">
-    <div class="container" style= "text-align: center">>
+    <div class="container" style= "text-align: center">
         <h1 style="color: white; margin: 0; text-align: center">注 册</h1>
         <label><input type="text" placeholder="用户名" name="username" required="required"/></label>
         <label><input type="text" placeholder="真实姓名" name="realname" required="required"/></label>
@@ -308,7 +308,7 @@
 
                 success: function (data) {
                     if (data.code == 0) {
-                        alert("注册成功");
+                        alert(data.msg);
                         location.href = ctx + "login";
                     } else {
                         alert(data.msg);

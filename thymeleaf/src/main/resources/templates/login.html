@@ -25,13 +25,19 @@
     var ctx = "\/";
    var login = function (ev) {
         if (!ev || ev.keyCode == 13) {
-            var username = $("input[name='username']").val();
-            var password = $("input[name='password']").val();
-            var rememberMe = $("input[name='rememberMe']").is(':checked');
+            // var username = $("input[name='username']").val();
+            // var password = $("input[name='password']").val();
+            // var rememberMe = $("input[name='rememberMe']").is(':checked');
+            var sysUserReq = {
+                userName : $("input[name='username']").val(),
+                password : $("input[name='password']").val(),
+                rememberMe : $("input[name='rememberMe']").is(':checked')
+            };
             $.ajax({
                 type: "post",
                 url: ctx + "login",
-                data: {"username": username,"password": password,"rememberMe": rememberMe},
+                data: JSON.stringify(sysUserReq),
+                contentType: "application/json",
                 dataType: "json",
                 success: function (r) {
                     if (r.code == 0) {

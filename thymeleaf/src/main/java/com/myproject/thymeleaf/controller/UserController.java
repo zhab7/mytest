@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Api(value = "用户Controller")
@@ -45,7 +46,10 @@ public class UserController {
     @Log("登录接口")
     @ApiOperation("登录接口")
     @ResponseBody
-    public ResponseBo login(String username, String password, Boolean rememberMe) {
+    public ResponseBo login(@RequestBody @Valid SysUserReq sysUserReq) {
+        String username = sysUserReq.getUserName();
+        String password = sysUserReq.getPassword();
+        Boolean rememberMe = sysUserReq.isRememberMe();
         // 密码MD5加密
         password = MD5Utils.encrypt(username, password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
@@ -91,19 +95,18 @@ public class UserController {
 
     @PostMapping("/register")
     @ResponseBody
+    @Log("注册接口")
     public ResponseBo register(@RequestBody @Valid SysUserReq sysUserReq) {
-        System.out.println("username = " + sysUserReq);
         SysUser user = userService.getByName(sysUserReq.getUserName());
         if (user != null) {
             return ResponseBo.error("用户名已注册！");
         }
-
         String newPassword = MD5Utils.encrypt(sysUserReq.getUserName(), sysUserReq.getPassword());
         SysUser sysUser = BeanConvertUtils.map(sysUserReq, SysUser.class);
         sysUser.setPassword(newPassword);
         sysUser.setStatus(0);
         userService.insertUser(sysUser);
-        return ResponseBo.ok();
+        return ResponseBo.ok("注册成功");
     }
 
     @GetMapping("/register")

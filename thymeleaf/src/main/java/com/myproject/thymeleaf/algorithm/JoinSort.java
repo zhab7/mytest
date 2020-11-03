@@ -1,4 +1,4 @@
-package com.myproject.thymeleaf.test;
+package com.myproject.thymeleaf.algorithm;
 
 
 public class JoinSort {

@@ -1,16 +1,18 @@
 package com.myproject.thymeleaf.model.req;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 
-@Data
+@Setter
+@Getter
 public class SysUserReq {
 
-    @NotEmpty
+    @NotEmpty(message = "用户名不能为空")
     String userName;
 
-    @NotEmpty
+    @NotEmpty(message = "密码不能为空")
     String password;
 
     /**
@@ -24,6 +26,7 @@ public class SysUserReq {
 
     String email;
 
-    @NotEmpty
     String realName;
+
+    boolean rememberMe = false;
 }

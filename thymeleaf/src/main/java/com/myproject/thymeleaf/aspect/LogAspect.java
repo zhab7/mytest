@@ -1,11 +1,14 @@
 package com.myproject.thymeleaf.aspect;
 
 
+import com.alibaba.fastjson.JSON;
 import com.myproject.thymeleaf.model.annotation.Log;
 import com.myproject.thymeleaf.model.entity.SysLog;
+import com.myproject.thymeleaf.model.entity.SysUser;
 import com.myproject.thymeleaf.service.SysLogService;
 import com.myproject.thymeleaf.util.HttpContextUtils;
 import com.myproject.thymeleaf.util.IPUtils;
+import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -77,9 +80,17 @@ public class LogAspect {
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
         // 设置IP地址
         sysLog.setIp(IPUtils.getIpAddr(request));
-        // FIXME 当前登录的用户名
-        sysLog.setUserName("admin");
+        // 设置当前登录的用户名
+        SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
+        String username = user == null ? "system" : user.getUserName();
+        sysLog.setUserName(username);
         sysLog.setTime(new BigDecimal(time));
+        try {
+            // 记录方法执行结果
+            sysLog.setResult(JSON.toJSONString(joinPoint.proceed()));
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
         // 保存系统日志
         sysLogService.saveLog(sysLog);
     }

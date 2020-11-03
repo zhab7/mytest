@@ -36,4 +36,9 @@ public class SysLog extends BaseEntity {
      * IP地址
      */
     private String ip;
+
+    /**
+     * 方法执行结果
+     */
+    private String result;
 }
