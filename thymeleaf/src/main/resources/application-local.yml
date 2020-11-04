@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    dynamic:
+      primary: ty
+      # 多数据源的配置
+      datasource:
+        ty:
+          url: jdbc:mysql://212.129.135.144:3306/thymeleaf?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+          username: root
+          password: 123456
