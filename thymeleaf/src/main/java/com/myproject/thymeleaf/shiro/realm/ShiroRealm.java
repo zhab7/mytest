@@ -8,6 +8,7 @@ import com.myproject.thymeleaf.service.impl.RolePermissionServiceImpl;
 import com.myproject.thymeleaf.service.impl.UserRoleServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -66,7 +67,9 @@ public class ShiroRealm extends AuthorizingRealm {
 
         // 获取用户输入的用户名和密码
         String userName = (String) token.getPrincipal();
-//        String userName = JWTUtil.getUsername(token.toString());
+        if (StringUtils.isBlank(userName)) {
+            return null;
+        }
         String password = new String((char[]) token.getCredentials());
         // 通过用户名到数据库查询用户信息
         SysUser sysUser = userService.getByName(userName);

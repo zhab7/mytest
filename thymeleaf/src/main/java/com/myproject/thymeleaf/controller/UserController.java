@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
+
 import java.util.Date;
 
 @Api(value = "用户Controller")
