@@ -5,12 +5,14 @@
     <title>个人信息</title>
 </head>
 <body>
+<div style="text-align: right">
+    <a style="color: #d4d7a9; text-align: right; width:140px; height:30px;" href="/">首页</a>
+    <a style="color: #d4d7a9; text-align: right; width:140px; height:30px;" th:href="@{/logout}">注销</a>
+</div>
 用户名：<h1 th:text="${sysUser.realName}"></h1>
 性别：<h1 th:text="${sysUser.sex}"></h1>
 e_mail：<h1 th:text="${sysUser.email}"></h1>
 地址：<h1 th:text="${sysUser.address}"></h1>
 电话：<h1 th:text="${sysUser.phone}"></h1>
-
-<a th:href="@{/logout}">注销</a>
 </body>
 </html>
