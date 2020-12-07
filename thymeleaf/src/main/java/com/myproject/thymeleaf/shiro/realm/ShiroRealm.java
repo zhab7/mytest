@@ -3,7 +3,7 @@ package com.myproject.thymeleaf.shiro.realm;
 import com.myproject.thymeleaf.model.entity.RolePermission;
 import com.myproject.thymeleaf.model.entity.SysUser;
 import com.myproject.thymeleaf.model.entity.UserRole;
-import com.myproject.thymeleaf.service.UserService;
+import com.myproject.thymeleaf.service.SysUserService;
 import com.myproject.thymeleaf.service.impl.RolePermissionServiceImpl;
 import com.myproject.thymeleaf.service.impl.UserRoleServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class ShiroRealm extends AuthorizingRealm {
 
     @Autowired
-    private UserService userService;
+    private SysUserService sysUserService;
     @Autowired
     private UserRoleServiceImpl userRoleService;
     @Autowired
@@ -72,7 +72,7 @@ public class ShiroRealm extends AuthorizingRealm {
         }
         String password = new String((char[]) token.getCredentials());
         // 通过用户名到数据库查询用户信息
-        SysUser sysUser = userService.getByName(userName);
+        SysUser sysUser = sysUserService.getByName(userName);
 
         if (sysUser == null) {
             throw new UnknownAccountException("用户名或密码错误！");

@@ -19,4 +19,14 @@ logging:
     com.myproject.thymeleaf: debug
   config: classpath:logback.xml
 server:
-  port: 8081
+  port: 8080
+
+
+msg:
+  push:
+    queue:
+      email: msg.push.queue.email
+    routekey:
+      email: msg.push.routekey.email
+    exchange:
+      email: msg.push.exchange.email

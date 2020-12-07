@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
-@MapperScan(value = "com.myproject.thymeleaf.mapper")
+@MapperScan(value = "com.myproject.thymeleaf.**.mapper*")
 public class ThymeleafApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

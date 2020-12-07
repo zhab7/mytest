@@ -2,9 +2,10 @@ package com.myproject.thymeleaf.controller;
 
 import com.myproject.thymeleaf.model.annotation.Log;
 import com.myproject.thymeleaf.model.entity.SysUser;
+import com.myproject.thymeleaf.model.req.SysUserLogiinReq;
 import com.myproject.thymeleaf.model.req.SysUserReq;
 import com.myproject.thymeleaf.model.vo.ResponseBo;
-import com.myproject.thymeleaf.service.UserService;
+import com.myproject.thymeleaf.service.SysUserService;
 import com.myproject.thymeleaf.shiro.util.MD5Utils;
 import com.myproject.thymeleaf.util.BeanConvertUtils;
 import io.swagger.annotations.Api;
@@ -29,7 +30,7 @@ import java.util.Date;
 public class UserController {
 
     @Resource
-    private UserService userService;
+    private SysUserService sysUserService;
 
 
     @GetMapping("/getUser")
@@ -37,7 +38,7 @@ public class UserController {
     @ApiOperation("根据用户名获取用户")
     public String getUser(Model model, @RequestParam String userName) {
 
-        SysUser sysUser = userService.getByName(userName);
+        SysUser sysUser = sysUserService.getByName(userName);
         model.addAttribute("sysUser", sysUser);
         return "user";
     }
@@ -46,7 +47,7 @@ public class UserController {
     @Log("登录接口")
     @ApiOperation("登录接口")
     @ResponseBody
-    public ResponseBo login(@RequestBody @Valid SysUserReq sysUserReq) {
+    public ResponseBo login(@RequestBody @Valid SysUserLogiinReq sysUserReq) {
         String username = sysUserReq.getUserName();
         String password = sysUserReq.getPassword();
         Boolean rememberMe = sysUserReq.isRememberMe();
@@ -97,7 +98,7 @@ public class UserController {
     @ResponseBody
     @Log("注册接口")
     public ResponseBo register(@RequestBody @Valid SysUserReq sysUserReq) {
-        SysUser user = userService.getByName(sysUserReq.getUserName());
+        SysUser user = sysUserService.getByName(sysUserReq.getUserName());
         if (user != null) {
             return ResponseBo.error("用户名已注册！");
         }
@@ -105,7 +106,7 @@ public class UserController {
         SysUser sysUser = BeanConvertUtils.map(sysUserReq, SysUser.class);
         sysUser.setPassword(newPassword);
         sysUser.setStatus(0);
-        userService.insertUser(sysUser);
+        sysUserService.insertUser(sysUser);
         return ResponseBo.ok("注册成功");
     }
 

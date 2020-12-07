@@ -1,13 +1,133 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <title>樱花</title>
-    <script src="js/jquery.min.js"></script>
+    <META http-equiv=Content-Type content='text/html; charset=UTF-8'>
+    <title>Title</title>
+    <style type="text/css">
+        table.reference, table.tecspec {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 4px;
+            margin-top: 4px;
+        }
+        table.reference tr:nth-child(even) {
+            background-color: #fff;
+        }
+        table.reference tr:nth-child(odd) {
+            background-color: #f6f4f0;
+        }
+        table.reference th {
+            color: #fff;
+            background-color: #555;
+            border: 1px solid #555;
+            font-size: 12px;
+            padding: 3px;
+            vertical-align: top;
+        }
+        table.reference td {
+            line-height: 2em;
+            min-width: 24px;
+            border: 1px solid #d4d4d4;
+            padding: 5px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            vertical-align: top;
+        }
+        .article-body h3 {
+            font-size: 1.8em;
+            margin: 2px 0;
+            line-height: 1.8em;
+        }
+    </style>
 </head>
 <body>
-<div id = "jsi-cherry-container"
-     class = "container"></div>
-<script src="css/jquery.min.js"></script>
+<h3 style=";">尊敬的$!customerName ，您好，您有以下发票即将在本月逾期，逾期后系统将自动停止接单，烦请您及时付款，非常感谢您的配合，谢谢！</h3>
+<section>
+    <span>即将到期清单，请查阅！</span>
+    <table class="reference">
+        <tbody>
+        <tr>
+            <th>发票号</th>
+            <th>发票日期</th>
+            <th>发票金额</th>
+        </tr>
+        #foreach($element in  $data)
+        <tr>
+            <td>
+                #if($!element.invoiceno)
+                $!element.invoiceno
+                #end
+            </td>
+            <td>
+                #if($!element.billDate)
+                $!element.billDate
+                #end
+            </td>
+            <td>
+                #if($!element.occupationmny)
+                $!numberTool.format("#0.00", $!{element.occupationmny})
+                #end
+            </td>
+        </tr>
+        #end
+        <tr>
+            <td>
+                合计
+            </td>
+            <td>
+            </td>
+            <td>
+                #if($!totalAmountToBePaid)
+                $!numberTool.format("#0.00", $!{totalAmountToBePaid})
+                #end
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <span>已到期清单，请查阅！</span>
+    <table class="reference">
+        <tbody>
+        <tr>
+            <th>发票号</th>
+            <th>发票日期</th>
+            <th>发票金额</th>
+        </tr>
+        #foreach($element in  $warnData)
+        <tr>
+            <td>
+                #if($!element.invoiceno)
+                $!element.invoiceno
+                #end
+            </td>
+            <td>
+                #if($!element.billDate)
+                $!element.billDate
+                #end
+            </td>
+            <td>
+                #if($!element.occupationmny)
+                $!numberTool.format("#0.00", $!{element.occupationmny})
+                #end
+            </td>
+        </tr>
+        #end
+        <tr>
+            <td>
+                合计
+            </td>
+            <td>
+            </td>
+            <td>
+                #if($!totalAmountOverdue)
+                $!numberTool.format("#0.00", $!{totalAmountOverdue})
+                #end
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div style="float: left; margin-top: 300px;;">
+        <p>系统邮件(请勿回复) | 上海嘉岩供应链管理股份有限公司</p>
+    </div>
+</section>
 </body>
 </html>

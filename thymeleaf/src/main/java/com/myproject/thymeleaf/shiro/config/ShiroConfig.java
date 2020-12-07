@@ -44,6 +44,17 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/register", "anon");
         // druid数据源监控页面不拦截
         filterChainDefinitionMap.put("/druid/**", "anon");
+        filterChainDefinitionMap.put("/doc.html", "anon");
+        filterChainDefinitionMap.put("/**/*.js", "anon");
+        filterChainDefinitionMap.put("/**/*.css", "anon");
+        filterChainDefinitionMap.put("/**/*.html", "anon");
+        filterChainDefinitionMap.put("/**/*.svg", "anon");
+        filterChainDefinitionMap.put("/**/*.jpg", "anon");
+        filterChainDefinitionMap.put("/**/*.ico", "anon");
+        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/swagger**/**", "anon");
+        filterChainDefinitionMap.put("/webjars/**", "anon");
+        filterChainDefinitionMap.put("/v2/**", "anon");
         // 配置退出过滤器，其中具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
         filterChainDefinitionMap.put("/", "anon");

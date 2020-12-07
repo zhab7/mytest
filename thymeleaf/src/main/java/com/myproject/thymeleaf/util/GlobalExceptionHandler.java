@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -32,6 +33,7 @@ public class GlobalExceptionHandler {
     public ResponseBo validationBodyException(MethodArgumentNotValidException exception) {
 
         BindingResult bindingResult = exception.getBindingResult();
+        List<String> errorMessages = new LinkedList<>();
         if (bindingResult.hasErrors()) {
             List<ObjectError> errors = bindingResult.getAllErrors();
             errors.forEach(p -> {
@@ -39,10 +41,11 @@ public class GlobalExceptionHandler {
                 FieldError fieldError = (FieldError) p;
                 log.error("Data check failure : object{" + fieldError.getObjectName() + "},field{" + fieldError.getField() +
                         "},errorMessage{" + fieldError.getDefaultMessage() + "}");
+                errorMessages.add(fieldError.getDefaultMessage());
 
             });
         }
-        return ResponseBo.error("用户名、密码不能为空");
+        return ResponseBo.error(errorMessages.toString());
     }
 //    public
 }

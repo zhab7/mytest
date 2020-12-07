@@ -26,6 +26,7 @@ public class SysUserReq {
 
     String email;
 
+    @NotEmpty(message = "真实姓名不能为空")
     String realName;
 
     boolean rememberMe = false;
