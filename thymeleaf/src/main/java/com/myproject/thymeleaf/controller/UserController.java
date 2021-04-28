@@ -1,6 +1,7 @@
 package com.myproject.thymeleaf.controller;
 
 import com.myproject.thymeleaf.model.annotation.Log;
+import com.myproject.thymeleaf.model.annotation.RepeatSubmit;
 import com.myproject.thymeleaf.model.entity.SysUser;
 import com.myproject.thymeleaf.model.req.SysUserLogiinReq;
 import com.myproject.thymeleaf.model.req.SysUserReq;
@@ -36,6 +37,7 @@ public class UserController {
     @GetMapping("/getUser")
     @Log("根据用户名获取用户")
     @ApiOperation("根据用户名获取用户")
+    @RepeatSubmit
     public String getUser(Model model, @RequestParam String userName) {
 
         SysUser sysUser = sysUserService.getByName(userName);
@@ -76,6 +78,7 @@ public class UserController {
 //    @RequiresUser // 登录用户或者remember me 用户
 //    @RequiresAuthentication // 登录用户
     @RequestMapping("/index")
+    @RepeatSubmit
     public String index(Model model) {
         // 登录成后，即可通过Subject获取登录的用户信息
         SysUser sysUser = (SysUser) SecurityUtils.getSubject().getPrincipal();

@@ -22,10 +22,10 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <!--   排除内置的tomcat  -->
             <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.springframework.boot</groupId>-->
-                    <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
-                <!--</exclusion>-->
+            <!--<exclusion>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
+            <!--</exclusion>-->
             <!--</exclusions>-->
         </dependency>
         <dependency>
@@ -133,15 +133,112 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-jdbc</artifactId>-->
+            <!--<groupId>e-iceblue</groupId>-->
+            <!--<artifactId>spire.pdf</artifactId>-->
+            <!--<version>3.9.6</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-jdbc</artifactId>-->
         <!--</dependency>-->
         <!--<dependency>-->
-            <!--<groupId>org.mybatis.spring.boot</groupId>-->
-            <!--<artifactId>mybatis-spring-boot-starter</artifactId>-->
-            <!--<version>1.3.5</version>-->
+        <!--<groupId>org.mybatis.spring.boot</groupId>-->
+        <!--<artifactId>mybatis-spring-boot-starter</artifactId>-->
+        <!--<version>1.3.5</version>-->
         <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <version>2.7.4</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-client</artifactId>
+            <version>2.7.4</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-hdfs</artifactId>
+            <version>2.7.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-mapreduce-client-core</artifactId>
+            <version>2.7.4</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.aspose-cells</groupId>  <!--自定义-->
+            <artifactId>aspose-cells</artifactId>  <!--自定义-->
+            <version>8.5.2</version>          <!--自定义-->
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../thymeleaf/libs/aspose-cells-8.5.2.jar</systemPath><!--jar路径-->
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.aspose/aspose-pdf -->
+        <dependency>
+            <groupId>com.aspose</groupId>
+            <artifactId>aspose-pdf</artifactId>
+            <version>20.5</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../thymeleaf/libs/aspose-pdf-20.5-jdk17.jar</systemPath><!--jar路径-->
+        </dependency>
+
+        <!-- Guava ：事件总线，是一个轻量级的发布/订阅模式的应用模式。类似于MQ，比MQ更加简洁、轻量，仅在同一个jvm里面进行异步通知 -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>28.0-jre</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>6.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>6.8.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
     </dependencies>
+
+
+    <!--<repositories>-->
+<!--&lt;!&ndash;        <repository>-->
+            <!--<id>com.e-iceblue</id>-->
+            <!--<url>http://repo.e-iceblue.cn/repository/maven-public/</url>-->
+        <!--</repository>&ndash;&gt;-->
+        <!--<repository>-->
+            <!--<id>AsposeJavaAPI</id>-->
+            <!--<name>Aspose Java API</name>-->
+            <!--<url>https://repository.aspose.com/repo/</url>-->
+        <!--</repository>-->
+
+    <!--</repositories>-->
 
     <build>
         <plugins>

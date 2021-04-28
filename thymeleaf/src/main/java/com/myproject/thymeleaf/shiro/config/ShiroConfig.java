@@ -42,6 +42,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/**/*.mp4", "anon");
         filterChainDefinitionMap.put("/**/*.png", "anon");
         filterChainDefinitionMap.put("/register", "anon");
+        filterChainDefinitionMap.put("/rest/event/*", "anon");
+        filterChainDefinitionMap.put("/es/test/*", "anon");
         // druid数据源监控页面不拦截
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/doc.html", "anon");

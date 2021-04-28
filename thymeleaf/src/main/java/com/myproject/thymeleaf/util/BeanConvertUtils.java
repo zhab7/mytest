@@ -22,6 +22,7 @@ public class BeanConvertUtils {
 
     /**
      * 将类型为 S 的 src 对象转换成类型为 D 的对象
+     *
      * @param src
      * @param dstClazz
      * @param <S>
@@ -37,6 +38,7 @@ public class BeanConvertUtils {
 
     /**
      * 将类型为 S 的 src 对象集合，转换成类型为 D 的对象列表
+     *
      * @param srcCollection
      * @param srcClazz
      * @param dstClazz
@@ -61,6 +63,7 @@ public class BeanConvertUtils {
 
     /**
      * 将类型为 S 的 src 对象列表，转换成类型为 D 的对象列表
+     *
      * @param srcCollection
      * @param dstClazz
      * @param <S>
@@ -75,8 +78,8 @@ public class BeanConvertUtils {
         if (srcCollection.size() == 0) {
             return Collections.emptyList();
         }
-        
-        BoundMapperFacade<S, D> boundMapperFacade = getBoundMapperFacade((Class<S>)srcCollection.get(0).getClass(), dstClazz);
+
+        BoundMapperFacade<S, D> boundMapperFacade = getBoundMapperFacade((Class<S>) srcCollection.get(0).getClass(), dstClazz);
 
         List<D> dstList = new ArrayList<>(srcCollection.size());
         for (S s : srcCollection) {
@@ -88,6 +91,7 @@ public class BeanConvertUtils {
 
     /**
      * 将类型为 S 的 src 对象集合，转换成类型为 <K, D> 的Map, 主键的值使用每个对象的 keyFieldName 域的值，例如 refId
+     *
      * @param srcCollection
      * @param srcClazz
      * @param dstClazz
@@ -113,6 +117,7 @@ public class BeanConvertUtils {
 
     /**
      * 忽略 id created updated deleted version
+     *
      * @param src
      * @param dstClazz
      * @param <S>
@@ -135,38 +140,39 @@ public class BeanConvertUtils {
         return mapperFactory.getMapperFacade().map(src, dstClazz);
     }
 
-
     private final static String GET_PREFIX = "get";
+
     /**
      * 将对象转换成Map
+     *
      * @param obj 需要转换的对象
      * @param <T>
      * @return
      */
-    public static <T> Map<String,Object> convert2Map(final T obj){
-        Map<String,Object> map = new HashMap<>();
-        if(null == obj) return map;
+    public static <T> Map<String, Object> convert2Map(final T obj) {
+        Map<String, Object> map = new HashMap<>();
+        if (null == obj) return map;
         Class<?> clazz = obj.getClass();
         //循环父类属性
-        while(!clazz.equals(Object.class)){
+        while (!clazz.equals(Object.class)) {
             Field[] fields = getAllDeclaredFields(clazz);
             //循环类型属性
             for (Field f : fields) {
                 int modifer = f.getModifiers();
                 //排除final和static修饰的属性
-                if(Modifier.isFinal(modifer)||Modifier.isStatic(modifer)) continue;
+                if (Modifier.isFinal(modifer) || Modifier.isStatic(modifer)) continue;
                 String fieldName = f.getName();
                 Method method = null;
                 try {
 
 
-                    String fName = fieldName.substring(0,1).toUpperCase()+fieldName.substring(1);
+                    String fName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
                     method = clazz.getMethod(GET_PREFIX + fName);
-                    if(null == method) continue;
-                    if(null !=method.invoke(obj)){
-                            map.put(fieldName,method.invoke(obj));
+                    if (null == method) continue;
+                    if (null != method.invoke(obj)) {
+                        map.put(fieldName, method.invoke(obj));
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }
@@ -174,7 +180,8 @@ public class BeanConvertUtils {
         }
         return map;
     }
-    public static <T>  Field[] getAllDeclaredFields(Class<T> clazz) {
+
+    public static <T> Field[] getAllDeclaredFields(Class<T> clazz) {
 
         List<Field[]> fieldArrayList = new ArrayList<Field[]>();
 
@@ -204,8 +211,6 @@ public class BeanConvertUtils {
 
         return allFields;
     }
-
-
 
 
 }
