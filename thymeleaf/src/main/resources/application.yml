@@ -8,7 +8,7 @@ spring:
   profiles:
     active: @profiles.active@
   redis:
-    host: 172.17.0.3
+    host: 212.129.135.144
     port: 6379
     jedis:
       pool:
