@@ -3,6 +3,7 @@ package com.myproject.thymeleaf.exception;
 
 public enum ProjectEnum implements ExceptionEnumInterface {
     REPEAT_SUBMIT("0001", "repeat_submit"),
+    SESSION_IS_NULL("0002", "session_is_null"),
     ;
 
     private String code;

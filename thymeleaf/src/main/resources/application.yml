@@ -7,6 +7,20 @@ spring:
       maxRequestSize=100Mb
   profiles:
     active: @profiles.active@
+  redis:
+    host: 172.17.0.3
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 100
+        min-idle: 0
+    lettuce:
+      shutdown-timeout: 0
+    password: {DB_PASSWD}
+###    password: 123456
+
 
 fdfs:
   connect-timeout: 10000
