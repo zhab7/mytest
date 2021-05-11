@@ -7,12 +7,11 @@
     <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
 </head>
 <body>
-
+<div style="text-align: right">
+    <a style="color: #d4d7a9; text-align: right; width:140px; height:30px;" href="/">首页</a>
+    <a style="color: #d4d7a9; text-align: right; width:140px; height:30px;" href="/register">注册</a>
+</div>
 <div class="login-page">
-    <div style="text-align: right">
-        <a style="color: #d4d7a9; text-align: right; width:140px; height:30px;" href="/">首页</a>
-        <a style="color: #d4d7a9; text-align: right; width:140px; height:30px;" href="/register">注册</a>
-    </div>
     <div class="form">
         <input type="text" placeholder="用户名" name="username" required="required" onblur="checkUsernameValue()"/>
         <input type="password" placeholder="密码" name="password" required="required" onblur="checkPasswordValue()"/>
