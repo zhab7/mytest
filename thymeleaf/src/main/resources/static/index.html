@@ -182,7 +182,7 @@
 </div>
 <div class="show_info animated" >
     <div class="info_my">
-<img src="./image/0.jpg"  id="aaa" />
+        <img src="./image/0.jpg"  id="aaa" />
     </div>
 </div>
 <!--<div class="show_info animated" style="display:none;">
@@ -208,11 +208,11 @@
 
 
             window.onload = setInterval(function () {
-                let srcroute = "./image/" + ++count + ".jpg";
+                let srcroute = "./image/" + ++count % 4 + ".jpg";
                     // node1.setAttribute("src", srcroute)
                     console.log("========>>>", srcroute);
                     node1.src = srcroute;
-                }, 15000)
+                }, 2000)
             // }
 
 
@@ -417,7 +417,7 @@
                     transform(targets.grid, 1000);
                     break;
             }
-        }, 8000);
+        }, 5000);   // 123变换时间
 
         var button = document.getElementById('table');
         button.addEventListener('click', function (event) {
@@ -455,7 +455,7 @@
             var target = targets[i];
 
             new TWEEN.Tween(object.position)
-                .to({ x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration)
+                .to({ x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration)  // 123 切换速度
                 .easing(TWEEN.Easing.Exponential.InOut)
                 .start();
 
@@ -488,7 +488,7 @@
 
         // 让场景通过x轴或者y轴旋转  & z
         // scene.rotation.x += 0.011;
-        scene.rotation.y += 0.008;
+        scene.rotation.y += 0.007; // 123控制旋转速度
 
         requestAnimationFrame(animate);
 
