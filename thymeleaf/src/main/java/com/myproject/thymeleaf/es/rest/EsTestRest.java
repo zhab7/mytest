@@ -2,7 +2,11 @@ package com.myproject.thymeleaf.es.rest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.aspose.pdf.internal.imaging.internal.bouncycastle.asn1.esf.ESFAttributes;
 import com.myproject.thymeleaf.es.bean.vo.EsTestVo;
+import com.myproject.thymeleaf.es.factory.EsClientFactory;
+import com.myproject.thymeleaf.es.util.EsUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -31,8 +35,10 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -41,54 +47,35 @@ import java.util.*;
  * @author zhanjianjian
  * @since 2021/3/25
  */
-
+@Slf4j
 @RestController
 @RequestMapping("/es/test")
 public class EsTestRest {
 
     @GetMapping("/creat")
-    public String createdIndex() throws IOException {
-
-        // 暂时不判断索引是否存在
-        Map<String, Object> mappingMap = new HashMap<>();
-        mappingMap.put("dynamic", "false");
-        Map<String, Object> propertiesMap = new HashMap<>();
-        Map<String, String> fildTypeMap = new HashMap<>();
-        Field[] fields = EsTestVo.class.getFields();
-
-        for (Field field : fields) {
-            if (field.getType().equals(String.class) || field.getType().equals(List.class)) {
-                fildTypeMap.put("type", "keyword");
-                propertiesMap.put(field.getName(), fildTypeMap);
-            } else if (field.getType().equals(Date.class)) {
-                fildTypeMap.put("type", "long");
-                propertiesMap.put(field.getName(), fildTypeMap);
-            }
+    public String createdIndex(@RequestParam String indexName,
+                               @RequestParam String indexAlias) {
+        Boolean exist = EsUtils.existIndex(indexName);
+        if (exist) {
+            log.info(indexName + " index exist");
+            EsUtils.deletedIndex(indexName);
         }
-        Map<String, Object> objectValueMap = new HashMap<>();
-//        objectValueMap.put("properties")
-//        objectValueMap.put("type", "nested");
-
-//        for (String key : (propertiesMap.keySet())) {
-//            properties.put(key, otherParams.get(key));
-//        }
-        mappingMap.put("properties", propertiesMap);
-
-        CreateIndexRequest createIndexRequest = new CreateIndexRequest("sc");
-
-        createIndexRequest.alias(new Alias("bieming"));
-        createIndexRequest.settings(Settings.builder()
-                .put("index.number_of_shards", 3)   //分片数
-                .put("index.number_of_replicas", 2)); //备份数)
-
-        createIndexRequest.mapping("doc", mappingMap);
-        createIndexRequest.masterNodeTimeout(TimeValue.timeValueMinutes(2));
-        createIndexRequest.waitForActiveShards(ActiveShardCount.DEFAULT);
-
-        RestHighLevelClient client = getClient();
-
-        client.indices().create(createIndexRequest, RequestOptions.DEFAULT);
+        EsUtils.createdIndex(indexName, indexAlias, EsTestVo.class);
         return "finish";
+    }
+
+    @GetMapping("/query")
+    public void queryEs(@RequestParam String indexName) {
+
+        EsTestVo esTestVo = new EsTestVo();
+        esTestVo.setName("lisi");
+        esTestVo.setAge(30);
+        esTestVo.setHobbies(Lists.newArrayList("eat", "drank", "乐"));
+        esTestVo.setRealName("李四");
+
+        String esJson = JSON.toJSONString(esTestVo);
+        EsUtils.createdDocument(indexName, esTestVo.getName(),  esJson);
+
     }
 
     private RestHighLevelClient getClient() {

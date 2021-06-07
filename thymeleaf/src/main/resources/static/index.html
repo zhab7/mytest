@@ -164,7 +164,7 @@
     <link rel="stylesheet" href="./css/animate.min.css">
 </head>
 
-<body>
+<body background="red">
 <script src="./js/jquery-2.1.1.js"></script>
 <script src="./js/three.js"></script>
 <script src="./js/tween.min.js"></script>
@@ -193,7 +193,7 @@
             &lt;!&ndash;<div class="id">灰太狼</div>&ndash;&gt;
             &lt;!&ndash;<div class="vote">沸羊羊</div>&ndash;&gt;
         &lt;!&ndash;</div>&ndash;&gt;
-
+ yum makecache fast
     </div>
 </div>-->
 
@@ -253,6 +253,8 @@
             //     img.setAttribute('src', './image/2.jpg');
             // }
             img.setAttribute('src', './image/2.jpg');
+            img.setAttribute('width', '10000px');
+            img.setAttribute('height', '10000px');
             ++CurPersonNum;
             setTimeout(function () {
                 $('.show_info').addClass(_out[rand_out]);

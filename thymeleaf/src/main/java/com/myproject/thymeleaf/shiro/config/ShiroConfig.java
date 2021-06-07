@@ -160,8 +160,8 @@ public class ShiroConfig {
     public CookieRememberMeManager rememberMeManager() {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
-        // rememberMe cookie加密的密钥
-        cookieRememberMeManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
+        // rememberMe cookie加密的密钥4AvVhmFLUs0KTA3Kprsdag==
+        cookieRememberMeManager.setCipherKey(Base64.decode("cmVtZW1iZXJNZQ=="));
         return cookieRememberMeManager;
     }
 

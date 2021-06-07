@@ -17,4 +17,6 @@ public class EsTestVo {
 
     List<String> hobbies;
 
+    String realName;
+
 }

@@ -44,3 +44,9 @@ msg:
       email: msg.push.routekey.email
     exchange:
       email: msg.push.exchange.email
+
+es:
+  userName: elastic
+  password: 111111
+  hostname: 192.168.159.129
+  port: 9200
