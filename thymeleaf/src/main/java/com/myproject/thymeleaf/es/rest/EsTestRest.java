@@ -134,5 +134,10 @@ public class EsTestRest {
         return "finish";
     }
 
+    @GetMapping("/search")
+    public void searchTest() throws IOException {
+        EsUtils.searchMatch();
+    }
+
 
 }

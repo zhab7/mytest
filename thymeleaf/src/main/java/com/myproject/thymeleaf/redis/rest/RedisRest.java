@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 
 /**
  * @author zhanjianjian
@@ -36,4 +38,24 @@ public class RedisRest {
         redisHandler.selectVote();
         return "success";
     }
+
+    @GetMapping("/getFile")
+    public void fileStream(HttpServletResponse response) {
+        File file = new File("D:\\project\\thymeleaf\\mytest\\thymeleaf\\src\\main\\resources\\static\\video\\test.mp4");
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            OutputStream os = new BufferedOutputStream(response.getOutputStream());
+            byte[] bytes = new byte[2048];
+            int length;
+            while ((length = fis.read(bytes)) > 0) {
+                os.write(bytes, 0, length);
+            }
+            fis.close();
+            os.flush();
+            os.close();
+        } catch (IOException e) {
+            System.out.println("e = " + e);
+        }
+    }
+
 }

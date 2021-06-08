@@ -54,6 +54,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/register", "anon");
         filterChainDefinitionMap.put("/rest/event/*", "anon");
         filterChainDefinitionMap.put("/es/test/*", "anon");
+        filterChainDefinitionMap.put("/rest/redis/*", "anon");
         // druid数据源监控页面不拦截
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/doc.html", "anon");
@@ -132,7 +133,7 @@ public class ShiroConfig {
      */
     public SimpleCookie rememberMeCookie() {
         // 设置cookie名称，对应login.html页面的<input type="checkbox" name="rememberMe"/>
-        SimpleCookie cookie = new SimpleCookie("gs_remember_me");
+        SimpleCookie cookie = new SimpleCookie("ty_remember_me");
         cookie.setHttpOnly(true);
         cookie.setPath("/");
         // 设置cookie的过期时间，单位为秒，这里为一天
@@ -160,8 +161,11 @@ public class ShiroConfig {
     public CookieRememberMeManager rememberMeManager() {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
-        // rememberMe cookie加密的密钥4AvVhmFLUs0KTA3Kprsdag==
-        cookieRememberMeManager.setCipherKey(Base64.decode("cmVtZW1iZXJNZQ=="));
+        // rememberme cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度（128 256 512 位），通过以下代码可以获取
+        //KeyGenerator keygen = KeyGenerator.getInstance("AES");
+        //SecretKey deskey = keygen.generateKey();
+        //System.out.println(Base64.encodeToString(deskey.getEncoded()));
+        cookieRememberMeManager.setCipherKey(Base64.decode("0BF6EPu8rMvcBnd2eHaOHw=="));
         return cookieRememberMeManager;
     }
 

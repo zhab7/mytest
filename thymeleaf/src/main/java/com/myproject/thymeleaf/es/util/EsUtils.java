@@ -3,6 +3,7 @@ package com.myproject.thymeleaf.es.util;
 import com.myproject.thymeleaf.es.bean.vo.EsTestVo;
 import com.myproject.thymeleaf.es.factory.EsClientFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.lucene.search.Query;
 import org.elasticsearch.action.DocWriteRequest;
 import org.elasticsearch.action.admin.indices.alias.Alias;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
@@ -11,13 +12,24 @@ import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.get.GetIndexRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.ActiveShardCount;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.io.stream.StreamOutput;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.QueryShardContext;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -160,5 +172,47 @@ public class EsUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void searchMatch() throws IOException {
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+        boolQuery.filter(QueryBuilders.matchQuery("name", "lisi"));
+
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(boolQuery);
+        // 类似分页查询
+        searchSourceBuilder.from(0);
+        searchSourceBuilder.size(15);
+
+        SearchRequest searchRequest = new SearchRequest("test_c");
+
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse search = EsClientFactory.getEsClient().search(searchRequest, RequestOptions.DEFAULT);
+
+        SearchHits hits = search.getHits();
+        System.out.println("hits = " + hits);
+        SearchHit[] hits1 = hits.getHits();
+        for (SearchHit documentFields : hits1) {
+            System.out.println("documentFields = " + documentFields);
+            Map<String, Object> sourceAsMap = documentFields.getSourceAsMap();
+            for (String s : sourceAsMap.keySet()) {
+                System.out.println("sourceAsMap = " + s + " value: " + sourceAsMap.get(s));
+            }
+        }
+    }
+
+    /**
+     * 搜索
+     *
+     * @param indexName           搜索的索引名
+     * @param searchSourceBuilder 搜索的类型及内容
+     * @return
+     * @throws IOException
+     */
+    public static SearchHits search(String indexName, SearchSourceBuilder searchSourceBuilder) throws IOException {
+        SearchRequest searchRequest = new SearchRequest(indexName);
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse searchResponse = EsClientFactory.getEsClient().search(searchRequest, RequestOptions.DEFAULT);
+        return searchResponse.getHits();
     }
 }
