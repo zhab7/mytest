@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Created by zhanjianjian on 2020/12/1.
  */
-@Configuration
+//@Configuration
 public class RabbitMqConfig {
 
     @Value(value = "${msg.push.exchange.email}")

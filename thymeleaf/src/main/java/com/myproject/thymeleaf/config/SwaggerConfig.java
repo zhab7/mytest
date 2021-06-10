@@ -17,22 +17,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig implements WebMvcConfigurer {
-//    @Bean
-//    public Docket buildDocket() {
-//        return new Docket(DocumentationType.SWAGGER_2)
-//            .apiInfo(buildApiInf())
-//            .select()
-//            .apis(RequestHandlerSelectors.basePackage("com.myproject.thymeleaf"))
-//            .paths(PathSelectors.any())
-//            .build();
-//    }
-//    private ApiInfo buildApiInf() {
-//        return new ApiInfoBuilder()
-//            .title("系统RESTful API文档")
-//            .contact(new Contact("thymeleaf", "http://212.129.135.144:8080", "565143354@qq.com"))
-//            .version("1.0")
-//            .build();
-//    }
 
     /**
      *

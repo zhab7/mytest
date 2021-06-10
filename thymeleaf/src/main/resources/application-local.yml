@@ -12,3 +12,14 @@ spring:
   redis:
     database:
       shiro: 3
+
+  rabbitmq:
+    addresses: 212.129.135.144
+    port: 5672
+    username: test
+    password: test
+    # 消息确认
+    # 确认消息已发送到交换机（exchange）
+    publisher-confirms: true
+    # 确认消息已发送到队列（queue）
+    publisher-returns: true
