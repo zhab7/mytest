@@ -1,6 +1,5 @@
 package com.myproject.thymeleaf.msg.rabbit.config;
 
-import com.rabbitmq.client.ConnectionFactory;
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;

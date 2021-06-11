@@ -59,6 +59,7 @@ public class SendMessageController {
         womanMap.put("messageData", messageData);
         womanMap.put("createTime", createTime);
         rabbitTemplate.convertAndSend("topicExchange", "topic.woman", womanMap);
+
         return "ok";
     }
 

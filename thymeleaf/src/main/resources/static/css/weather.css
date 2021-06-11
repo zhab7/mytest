@@ -1,0 +1,68 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: #ffffff;
+	margin: 0px;
+}
+tr {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #333333;
+}
+td {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #333333;
+}
+a {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #0A246A;
+	text-decoration: underline;
+}
+a:link {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #0A246A;
+	text-decoration: underline;
+}
+a:hover {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #666666;
+	text-decoration: none;
+}
+.list {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #333333;
+}
+.hfont {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	line-height: 16px;
+	color: #333333;
+	text-align: justify;
+	text-justify:inter-ideograph;
+}
+.img {
+	padding-top: 0px;
+	padding-right: 12px;
+	padding-bottom: 12px;
+	padding-left: 0px;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#000000,direction=135,strength=3);
+}
+.bredfont {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #CC0033;
+}
+table{
+	/* 表格固定布局 */
+	table-layout: fixed;word-break: break-all; word-wrap: break-word;
+}
+
+.award-name{
+	/* 超出部分显示省略号 */
+	-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:100%;
+}
