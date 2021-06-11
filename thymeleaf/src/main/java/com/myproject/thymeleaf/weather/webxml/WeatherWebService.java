@@ -34,15 +34,16 @@ public class WeatherWebService
     private final static QName WEATHERWEBSERVICE_QNAME = new QName("http://WebXml.com.cn/", "WeatherWebService");
 
     static {
-//        URL url = null;
+        URL url = null;
         WebServiceException e = null;
-//        try {
+        try {
 
-        URL url = Thread.currentThread().getContextClassLoader().getResource("WeatherWebService.xml");
+//        URL url = Thread.currentThread().getContextClassLoader().getResource("WeatherWebService.xml");
+            url = new URL("http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl");
         System.out.println("url = " + url.toString());
-//        } catch (MalformedURLException ex) {
-//            e = new WebServiceException(ex);
-//        }
+        } catch (MalformedURLException ex) {
+            e = new WebServiceException(ex);
+        }
         WEATHERWEBSERVICE_WSDL_LOCATION = url;
         WEATHERWEBSERVICE_EXCEPTION = e;
     }
