@@ -39,6 +39,7 @@ public class WeatherWebService
 //        try {
 
         URL url = Thread.currentThread().getContextClassLoader().getResource("WeatherWebService.xml");
+        System.out.println("url = " + url.toString());
 //        } catch (MalformedURLException ex) {
 //            e = new WebServiceException(ex);
 //        }
