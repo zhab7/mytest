@@ -8,11 +8,12 @@
 </head>
 <body>
 <div style="text-align: right">
+    <span th:text="${#dates.format(time,'yyyy-MM-dd HH:mm:ss')}">获取时间失败</span>
     <a style="color: #d4d7a9; text-align: right; width:140px; height:30px;" href="/">首页</a>
     <a style="color: #d4d7a9; text-align: right; width:140px; height:30px;" href="/register">注册</a>
 </div>
 <div class="login-page">
-    <h2>jz商城</h2>
+    <h2 style="text-align: center">jzowner的测试学习</h2>
     <div class="form">
         <input type="text" placeholder="用户名" name="username" required="required" onblur="checkUsernameValue()"/>
         <input type="password" placeholder="密码" name="password" required="required" onblur="checkPasswordValue()"/>

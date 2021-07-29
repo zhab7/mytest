@@ -24,6 +24,6 @@ public class HelloThymeleaf {
     @GetMapping("/currentTime")
     public String showTime(Model model) {
         model.addAttribute("time", new Date());
-        return "time";
+        return "time_bak";
     }
 }
