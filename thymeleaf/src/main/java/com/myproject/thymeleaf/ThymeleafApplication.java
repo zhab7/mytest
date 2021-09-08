@@ -10,6 +10,7 @@ import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.MultipartConfigElement;
 import java.nio.charset.StandardCharsets;
@@ -49,5 +50,9 @@ public class ThymeleafApplication extends SpringBootServletInitializer {
         return messageSource;
     }
 
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
 }
