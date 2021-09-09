@@ -54,7 +54,6 @@ public class FastDFSClient {
         log.info("文件的全名：" + filename + "    文件的扩展名：" + extension);
         StorePath storePath = storageClient.uploadFile(file.getInputStream(), file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()), null);
         String fullPath = storePath.getFullPath();
-        System.out.println("fullPath = " + fullPath);
         FileAttachment fileAttachment = new FileAttachment().fileName(filename).filePath(fullPath).comment(comment).build();
         fileAttachmentService.saveFileDetail(fileAttachment);
         return getResAccessUrl(storePath);
